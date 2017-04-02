@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>insertPartTwo</from-outcome>
+            <to-view-id>/Superadmin/adduserpart2.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>It'sDone</from-outcome>
+            <to-view-id>/Superadmin/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AllUsers</from-outcome>
+            <to-view-id>/Superadmin/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>superadmin</from-outcome>
+            <to-view-id>/Superadmin/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>admin</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>developer</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>AllSystems</from-outcome>
+            <to-view-id>/systems/allfordev.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>AddSystem</from-outcome>
+            <to-view-id>/systems/addpicture.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>PictureTrue</from-outcome>
+            <to-view-id>/systems/allfordev.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>allPS</from-outcome>
+            <to-view-id>/physical_server/servers.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>allVS</from-outcome>
+            <to-view-id>/virtual_server/servers.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>allComponents</from-outcome>
+            <to-view-id>/component/components.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>AllChanges</from-outcome>
+            <to-view-id>/systems/changelogs.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <!--ПОДРОБНЕЕ     !!!!!!!!!!!!!!!!! -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>detailPS</from-outcome>
+            <to-view-id>/physical_server/detailPS.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>detailVS</from-outcome>
+            <to-view-id>/virtual_server/detailVS.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>detailС</from-outcome>
+            <to-view-id>/component/detail.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>detailIS</from-outcome>
+            <to-view-id>/information_system/detailIS.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <!--<navigation-rule>-->
+    <!--<navigation-case>-->
+    <!--<from-outcome>login</from-outcome>-->
+    <!--<to-view-id>/auth/login.xhtml</to-view-id>-->
+    <!--<redirect/>-->
+    <!--</navigation-case>-->
+    <!--</navigation-rule>-->
+    <!--<navigation-rule>-->
+    <!--<navigation-case>-->
+    <!--<from-outcome>login_error</from-outcome>-->
+    <!--<to-view-id>/auth/login_error.xhtml</to-view-id>-->
+    <!--<redirect/>-->
+    <!--</navigation-case>-->
+    <!--</navigation-rule>-->
+
+    <!--ДОБАВЛЕНИЕ     !!!!!!!!!!!!!!!!! -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>addPS</from-outcome>
+            <to-view-id>/physical_server/add.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>addVS</from-outcome>
+            <to-view-id>/virtual_server/add.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>addComponentIS</from-outcome>
+            <to-view-id>/component/addtoinfosyst.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>addComponentVS</from-outcome>
+            <to-view-id>/component/addtovirtserver.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+    <navigation-case>
+        <from-outcome>AddChange</from-outcome>
+        <to-view-id>/systems/changelogs.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+</navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>AddUnderSystem</from-outcome>
+            <to-view-id>/systems/add.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <!--ИЗМЕНЕНИЕ     !!!!!!!!!!!!!!!!! -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>updatePS</from-outcome>
+            <to-view-id>/physical_server/update.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>updateVS</from-outcome>
+            <to-view-id>/virtual_server/update.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>updateComponent</from-outcome>
+            <to-view-id>/component/update.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>layoutMenu</from-outcome>
+            <to-view-id>/layout/mainmenu.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>allstatuses</from-outcome>
+            <to-view-id>/systems/allfordev.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

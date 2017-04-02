@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <h:outputStylesheet name="css/bootstrap.css"/>
+    <h:outputStylesheet name="css/bootstrap-theme.css"/>
+    <h:outputStylesheet name="css/mystrap.css"/>
+    <h:outputScript name="js/bootstrap.js"/>
+    <h:outputScript name="js/npm.js"/>
+</h:head>
+<h:body>
+    <ui:insert name="header">
+        <ui:include src="../layout/mainmenu.xhtml"/>
+    </ui:insert>
+
+    <div class="container margin-top-60">
+        <h4 class="text-center margin-bottom-30">Подробнее о текущем компоненте</h4>
+        <h:form>
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-md-offset-2 font-size-larger font-grey">
+                    <p class="padding-bot-12">Название компонета:</p>
+                    <p class="padding-bot-12">Порт на котором установлен компонент:</p>
+                    <p class="padding-bot-12">Версия компонента:</p>
+                    <p class="padding-bot-12">Средняя загруженность компонета:</p>
+                    <p class="padding-bot-12" style="margin-bottom: 10%">Статус компонета:</p>
+                    <p class="padding-bot-12">Информационная система:</p>
+                    <p class="padding-bot-12">Виртуальный сервер:</p>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    <p><p:outputLabel style="margin-bottom: 3%" value="#{ComponentManage.component.name}" id="name"/>
+                    </p>
+                    <p><p:outputLabel style="margin-bottom: 3%" value="#{ComponentManage.component.port}" id="port"/>
+                    </p>
+                    <p><p:outputLabel style="margin-bottom: 3%" value="#{ComponentManage.component.version}"
+                                      id="version"/></p>
+                    <p><p:outputLabel style="margin-bottom: 3%" value="#{ComponentManage.component.load}" id="load"/>
+                    </p>
+                    <p>
+
+                        <h:selectOneMenu style="width: 50%" value="#{ComponentManage.component.status}"
+                                         id="status"
+                                         styleClass="form-control">
+                            <f:selectItem itemValue="Active" itemLabel="Active" styleClass="form-control"/>
+                            <f:selectItem itemValue="TechnicalWork" itemLabel="TechnicalWork"
+                                          styleClass="form-control"/>
+                            <f:selectItem itemValue="Down" itemLabel="Down" styleClass="form-control"/>
+                        </h:selectOneMenu>
+                        <h:commandButton value="Изменить статус" styleClass="btn btn-primary"
+                                         action="#{ComponentManage.updateStatus(ComponentManage.component.id)}"
+                                         style="margin-bottom: 1%; margin-top: 1%"/>
+                    </p>
+                    <p><p:outputLabel style="margin-bottom: 3%" value="#{ComponentManage.component.idInformSystem}" id="idInformSystem"/></p>
+                    <p><p:outputLabel value="#{ComponentManage.component.idVirtualServer}" id="idVirtualServer"/></p>
+                </div>
+            </div>
+        </h:form>
+    </div>
+</h:body>
+</html>

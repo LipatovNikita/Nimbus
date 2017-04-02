@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <h:outputStylesheet name="css/bootstrap.css" />
+    <h:outputStylesheet name="css/bootstrap-theme.css" />
+    <h:outputStylesheet name="css/mystrap.css" />
+    <h:outputScript name="js/bootstrap.js" />
+    <h:outputScript name="js/npm.js" />
+
+    <title>
+        Компоненты системы
+    </title>
+</h:head>
+<h:body>
+    <ui:insert name="header" >
+        <ui:include src="../layout/mainmenu.xhtml" />
+    </ui:insert>
+
+    <div class="container margin-top-60">
+
+        <h:form>
+            <h:commandButton value="Добавить компонент" action="#{ComponentManage.goToAddComponent}"
+                             styleClass="btn btn-primary margin-bot-top-10"/>
+            <p:dataTable value="#{ComponentManage.components}" var="comp" styleClass="text-center" id="componentTable"
+                         scrollable="true" scrollHeight="600">
+                <f:facet name="header">
+                    Компоненты
+                </f:facet>
+                <p:column headerText="Название" filterBy="#{comp.name}" styleClass="width-115" >
+                    <h:outputText value="#{comp.name}" id="name"/>
+                </p:column>
+                <p:column headerText="Статус" filterBy="#{comp.status}" styleClass="width-115" >
+                    <h:outputText value="#{comp.status}"  id="status"/>
+                </p:column>
+                <p:column headerText="Порт" filterBy="#{comp.port}" styleClass="width-115">
+                    <h:outputText value="#{comp.port}" id="port"/>
+                </p:column>
+                <p:column headerText="Версия" filterBy="#{comp.version}"  styleClass="width-115">
+                    <h:outputText value="#{comp.version}" id="version"/>
+                </p:column>
+                <p:column headerText="Нагрузка" filterBy="#{comp.load}"  styleClass="width-115">
+                    <h:outputText value="#{comp.load}%" id="load"/>
+                </p:column>
+                <p:column headerText="ID инфо. системы" filterBy="#{comp.idInformSystem}"  styleClass="width-140">
+                    <h:outputText value="#{comp.idInformSystem}" id="IS"/>
+                </p:column>
+                <p:column headerText="ID вирт. сервера" filterBy="#{comp.idVirtualServer}"  styleClass="width-115">
+                    <h:outputText value="#{comp.idVirtualServer}" id="VS"/>
+                </p:column>
+                <p:column styleClass="width-200">
+                    <p:splitButton value="Подробнее.." action="#{ComponentManage.detail(comp.id)}" >
+                        <p:menuitem value="Изменить" action="#{ComponentManage.goToUpdateComponent(comp.id)}" icon="ui-icon-arrowrefresh-1-w"  />
+                        <p:menuitem value="Удалить" action="#{ComponentManage.deleteComponent(comp.id)}" icon="ui-icon-close" />
+                    </p:splitButton>
+                </p:column>
+                <!--<h:column>-->
+                    <!--<h:commandButton value="Удалить" action="#{ComponentManage.deleteComponent(comp.id)}"/>-->
+                <!--</h:column>-->
+                <!--<h:column>-->
+                    <!--<h:commandButton value="Изменить" action="#{ComponentManage.goToUpdateComponent(comp.id)}"/>-->
+                <!--</h:column>-->
+            </p:dataTable>
+        </h:form>
+
+    </div>
+
+
+</h:body>
+</html>

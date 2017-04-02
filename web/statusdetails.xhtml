@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <h:head>
+        <h:outputStylesheet name="css/bootstrap.css"/>
+        <h:outputStylesheet name="css/mystrap.css"/>
+        <h:outputScript name="js/bootstrap.js"/>
+    </h:head>
+    <style>
+        .imgStatus {
+            width: 15%;
+        }
+    </style>
+</h:head>
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="/index.xhtml"><p:graphicImage value="../resources/images/nimbus.png" width="16%" height="16%"
+                                                   styleClass="margin-bot-top-5"/></a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <div class="navbar-form navbar-right">
+                <h:form id="loginForm">
+                    <c:choose>
+                        <c:when test="#{request.isUserInRole('Admin') || request.isUserInRole('Developer') || request.isUserInRole('Admin')}">
+                            <h:commandButton rendered="true" class="btn btn-danger" value="Выход"
+                                             action="#{loginBean.logout}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show();" title="login"
+                                          class="btn btn-success">
+                                Вход
+                            </h:outputLink>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:if test="#{request.isUserInRole('Superadmin')}">
+                        <h:link class="btn btn-success" outcome="/Superadmin/index.xhtml"
+                                value="На страницу суперадминистратора"/>
+                    </c:if>
+                    <p:growl id="growl" sticky="true" showDetail="true" life="3000"/>
+                    <p:dialog widgetVar="dlg" resizable="false">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel for="login" value="Имя пользователя"/>
+                            <br/>
+                            <p:inputText id="login" value="#{loginBean.username}" required="true"
+                                         label="username"/>
+                            <br/>
+                            <h:outputLabel for="password" value="Пароль"/>
+                            <br/>
+                            <p:password id="password" value="#{loginBean.password}" required="true"
+                                        label="password"/>
+                            <f:facet name="footer">
+                                <hr/>
+                                <center>
+                                    <p:commandButton id="submit" value="Войти" update="growl"
+                                                     action="#{loginBean.login}"
+                                                     oncomplete="handleLoginRequest(xhr, status, args)"/>
+                                </center>
+                            </f:facet>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" align="center" style="margin-top: 5%">
+    <h1>Статусы систем за последнюю неделю</h1>
+    <hr/>
+    <h:form>
+        <p:dataTable value="#{informationSystemBean.superSystems}" var="supersystem">
+            <p:column style="width: 4%">
+                <p:rowToggler/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">Система</f:facet>
+                <h:outputText value="#{supersystem.name}"/>
+            </p:column>
+
+            <p:columns value="#{statusBean.lastWeek()}" var="day" headerText="#{day}" style="text-align: center">
+                <ui:repeat value="#{statusBean.getStatusesBySystem(supersystem.idsystem)}" var="status">
+                    <p:graphicImage styleClass="imgStatus" value="/resources/images/Down.png"
+                                    rendered="#{(day eq statusBean.convertToLocalDate(status.date)) and (status.status eq 'Down')}"
+                                    onclick="PF('dlgdown1').show()">
+                    </p:graphicImage>
+                    <p:graphicImage styleClass="imgStatus" value="/resources/images/TechnicalWorks.png"
+                                    rendered="#{(day eq statusBean.convertToLocalDate(status.date)) and (status.status eq 'TechnicalWork')}"
+                                    onclick="PF('dlgworks1').show()">
+                    </p:graphicImage>
+                    <p:dialog header="Информация" widgetVar="dlgdown1">
+                        <h:outputText value="Всё сломалось #{status.date}"/>
+                    </p:dialog>
+                    <p:dialog header="Информация" widgetVar="dlgworks1">
+                        <h:outputText value="Всё сломалось #{status.date}"/>
+                    </p:dialog>
+                </ui:repeat>
+            </p:columns>
+
+            <p:rowExpansion>
+                <p:panelGrid>
+                    <p:dataTable value="#{informationSystemBean.getSystemsWithStatus(supersystem.idsystem)}"
+                                 var="system">
+                        <p:column style="width: 3%">
+                        </p:column>
+
+                        <p:column style="width: 11%">
+                            <h:outputText value="#{system.name}"/>
+                        </p:column>
+
+                        <p:columns value="#{statusBean.lastWeek()}" var="day" style="width: 11%">
+                            <ui:repeat value="#{statusBean.getStatusesBySystem(system.idsystem)}" var="status">
+                                <p:graphicImage styleClass="imgStatus" value="/resources/images/Down.png"
+                                                rendered="#{(day eq statusBean.convertToLocalDate(status.date)) and (status.status eq 'Down')}"
+                                                onclick="PF('dlgdown').show()">
+                                </p:graphicImage>
+                                <p:graphicImage styleClass="imgStatus" value="/resources/images/TechnicalWorks.png"
+                                                rendered="#{(day eq statusBean.convertToLocalDate(status.date)) and (status.status eq 'TechnicalWork')}"
+                                                onclick="PF('dlgworks').show()">
+                                </p:graphicImage>
+                                <p:dialog header="Информация" widgetVar="dlgdown">
+                                    <h:outputText value="Всё сломалось #{status.date}"/>
+                                </p:dialog>
+                                <p:dialog header="Информация" widgetVar="dlgworks">
+                                    <h:outputText value="Всё сломалось #{status.date}"/>
+                                </p:dialog>
+                            </ui:repeat>
+                        </p:columns>
+                    </p:dataTable>
+                </p:panelGrid>
+            </p:rowExpansion>
+        </p:dataTable>
+    </h:form>
+    <div class="container" align="center" style="margin-top: 5%">
+        <div class="row">
+            <p:chart type="line" model="#{chartView.dateModel}" style="height:400px;"/>
+        </div>
+    </div>
+</div>
+
+<div class="navbar-fixed-bottom color-grey row-fluid">
+    <div class="container">
+        <h:form>
+            <div class="row">
+                <div class="col-lg-7 col-md-7">
+                </div>
+                <div class="col-lg-1 col-md-1">
+                    <p:graphicImage value="/resources/images/rosselxoz.png" width="130%" height="130%"
+                                    styleClass="margin-bot-top-5"/>
+                </div>
+                <div class="col-lg-4 col-md-4 ">
+                    <p class="margin-top-15 font-white">© 2007 — 2017 Россельхознадзор Федеральная служба по ветеринарному и фитосанитарному надзору</p>
+                </div>
+            </div>
+        </h:form>
+    </div>
+</div>
+
+</html>

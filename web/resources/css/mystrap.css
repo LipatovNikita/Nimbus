@@ -1,0 +1,174 @@
+.margin-top-60{
+    margin-top: 60px;
+    margin-bottom: 20%;
+}
+
+.margin-table-bot-20 {
+    margin-bottom: 20%;
+}
+
+.padding-top-3{
+    padding-top: 3px;
+}
+
+.margin-top-15{
+    margin-top: 15px;
+}
+
+.margin-bottom-30{
+    margin-bottom: 30px;
+}
+
+.margin-bot-20{
+    margin-bottom: 20px;
+}
+
+.margin-bot-top-5{
+    margin: 5px 0;
+}
+
+.margin-bot-top-10{
+    margin: 10px 0;
+}
+.margin-bot-top-15{
+    margin: 15px 0;
+}
+
+.margin-bot-35{
+    margin-bottom: 35px;
+}
+
+.margin-right-10{
+    margin-right: 10px;
+}
+
+
+.margin-all-20{
+    margin: 20px;
+}
+
+.margin-50proc{
+    margin-top: 50%;
+}
+
+.padding-bot-12{
+    padding-bottom: 12px;
+}
+
+.width-60{
+    width: 60px;
+}
+
+.width-80{
+    width: 80px;
+}
+
+.width-90{
+    width: 90px;
+}
+
+.width-115{
+    width: 115px;
+}
+
+.width-150{
+    width: 150px;
+}
+
+.width-140{
+    width: 140px;
+}
+
+.width-250{
+    width: 250px;
+}
+
+.width-200{
+    width: 200px;
+}
+
+.width-300{
+    width: 300px;
+}
+
+.width-10-proc{
+    width: 10%;
+}
+
+.width-13-proc{
+    width: 13%;
+}
+
+.width-50-proc{
+    width: 50%;
+}
+
+.height-200{
+    height: 200px;
+}
+
+.bolt{
+    font-weight: bold;
+}
+
+.bolter{
+    font-weight: bolder;
+}
+
+.font-size-larger{
+    font-size: larger;
+}
+
+.font-size-medium{
+    font-size: medium;
+}
+
+.font-grey{
+    color: #7f7f7f;
+}
+
+.font-white{
+    color: #ffffff;
+}
+
+.my-border-left{
+    border-left: solid 1px #b4b4b4;
+}
+
+.my-border-panel{
+    border-bottom: solid 1px #bfc5c4;
+    border-top: solid 1px #bfc5c4;
+}
+
+.box-shadow-l-r{
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .3), -23px 0 20px -23px rgba(0, 0, 0, .8), 23px 0 20px -23px rgba(0, 0, 0, .8), 0 0 40px rgba(0, 0, 0, .1) inset;
+}
+
+.box-shadow-small{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+}
+
+.box-shadow-small:hover{
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, .2);
+}
+
+.radius {
+    border: 1px solid #bfc5c4;
+    border-radius: 5px;
+}
+
+.color-grey{
+    background-color: grey;
+}
+
+.font-gold{
+    color: gold;
+}
+
+.bigger-font{
+    font-size: 400%;
+}
+
+.biggest-font{
+    font-size: 800%;
+}

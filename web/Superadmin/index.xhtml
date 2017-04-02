@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <h:head>
+        <h:outputStylesheet name="css/bootstrap.css"/>
+        <h:outputStylesheet name="css/mystrap.css"/>
+        <h:outputStylesheet name="style.css"/>
+        <h:outputScript name="js/bootstrap.js"/>
+    </h:head>
+    <style>
+        .panel {
+            background: transparent;
+            border-color: transparent;
+            border-radius: 0 26px 26px 0;
+            box-shadow: none;
+            color: #fff;
+            height: 441px;
+            margin-bottom: 20px;
+            position: relative;
+            width: auto;
+            border-bottom: solid 1px #bfc5c4;
+            border-top: solid 1px #bfc5c4;
+        }
+
+        .panel a {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .panel a:hover {
+            text-decoration: none;
+        }
+
+        .panel-rightbody i {
+            font-size: 40px;
+        }
+
+        .panel-default > .panel-leftheading {
+            background: white;
+            color: black;
+        }
+
+        .panel-leftheading {
+            float: left;
+            height: 100%;
+            padding: 10px 15px;
+            position: absolute;
+            width: 10%;
+        }
+
+        .panel-lefttitle {
+            position: absolute;
+            -webkit-transform: rotate(270deg);
+            -webkit-transform-origin: left top;
+            -moz-transform: rotate(270deg);
+            -moz-transform-origin: left top;
+            -ms-transform: rotate(270deg);
+            -ms-transform-origin: left top;
+            -o-transform: rotate(270deg);
+            -o-transform-origin: left top;
+            transform: rotate(270deg);
+            transform-origin: left top;
+        }
+
+        .panel-rightbody {
+            background: white; /*#ccc*/
+            color: black;
+            display: none;
+            float: left;
+            height: 100%;
+            position: absolute;
+            text-align: center;
+            padding: 15px;
+            width: 1%;
+            border-bottom: solid 1px #bfc5c4;
+            border-top: solid 1px #bfc5c4;
+            border-right: solid 1px #bfc5c4;
+
+        }
+
+        #leftSLideBar {
+            left: -1px;
+            position: fixed;
+            top: 10px;
+        }
+
+        #leftSLideBar .panel-rightbody p {
+            line-height: 17px;
+        }
+
+        #leftSLideBar .panel-rightbody i.fa {
+            margin-bottom: 30px;
+        }
+
+        #leftSLideBar .panel-leftheading {
+            opacity: 0.8;
+        }
+
+        #leftSLideBar .panel-lefttitle {
+            bottom: -20px;
+            font-size: 23px;
+            font-weight: 300;
+            left: 0;
+            line-height: 28px;
+            padding-left: 77px;
+            white-space: nowrap;
+        }
+
+        #leftSLideBar .panel.panel-default > img:first-child {
+            height: 64px;
+            opacity: 0.7;
+            position: absolute;
+            right: 53px;
+            top: 37px;
+            width: 169px;
+        }
+
+        #leftSLideBar:hover .panel-rightbody {
+            display: table;
+        }
+    </style>
+</h:head>
+
+<ui:insert name="header">
+    <ui:include src="../layout/mainmenu.xhtml"/>
+</ui:insert>
+
+<div class="container">
+    <div class="row">
+        <div id="leftSLideBar" class="hidden-xs hidden-sm" style="margin-top: 4%">
+            <div class="panel panel-default">
+                <div class="panel-leftheading">
+                    <h3 class="panel-lefttitle">Панель суперадмина</h3>
+                </div>
+                <div class="panel-rightbody">
+                    <div class="row center-block">
+                        <p:graphicImage value="../resources/images/sadmin.png" width="90%" height="90%"/>
+                    </div>
+                    #{userBean.findUserByLogin(request.remoteUser)}
+                    <p:outputLabel
+                            value="#{userBean.user.lastname} #{userBean.user.firstname} #{userBean.user.middleName}"
+                            styleClass="font-size-larger my-border-panel"/>
+                    <ul class="nav nav-list">
+                        <h:button outcome="/Superadmin/adduserpart1.xhtml" value="Добавить нового пользователя"
+                                  rendered="true"
+                                  class="btn btn-default"/>
+                    </ul>
+                </div>
+                <div class="clearfix">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" align="center" style="margin-top: 5%">
+    <br/>
+    Пользователи системы
+    <br/>
+    <hr/>
+    <h:form>
+        <p:dataTable id="isTable" value="#{userBean.users}" var="user" style="text-align: center">
+            <p:column>
+                <f:facet name="header">Фамилия</f:facet>
+                <h:outputText value="#{user.lastname}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">Имя</f:facet>
+                <h:outputText value="#{user.firstname}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">Отчество</f:facet>
+                <h:outputText value="#{user.middleName}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">Роль</f:facet>
+                <h:outputText value="#{user.officialPosition}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">Доступ к ИС</f:facet>
+                <h:outputText rendered="#{user.id_supersystem == 0}" value="Доступ ко всем системам"/>
+                <h:outputText rendered="#{user.id_supersystem != 0}"
+                              value="#{userBean.systems.get(user.id_supersystem)}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">Имя пользователя</f:facet>
+                <h:outputText value="#{user.login}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">Пароль</f:facet>
+                <h:outputText value="#{user.password}"/>
+            </p:column>
+
+            <p:column>
+                <h:commandButton styleClass="btn btn-danger" value="Удалить"
+                                 action="#{userBean.deleteUser(user.login)}"/>
+            </p:column>
+        </p:dataTable>
+    </h:form>
+    <hr/>
+</div>
+</html>

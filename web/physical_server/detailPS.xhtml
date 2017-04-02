@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <h:outputStylesheet name="css/bootstrap.css" />
+    <h:outputStylesheet name="css/bootstrap-theme.css" />
+    <h:outputStylesheet name="css/mystrap.css" />
+    <h:outputScript name="js/bootstrap.js" />
+    <h:outputScript name="js/npm.js" />
+</h:head>
+<h:body>
+    <ui:insert name="header" >
+        <ui:include src="../layout/mainmenu.xhtml" />
+    </ui:insert>
+
+    <div class="container margin-top-60">
+        <h:form>
+            <div class="row">
+                <div class="alert alert-info">
+                    <h3 class="text-center text-info">Подробная информация об этом физическом сервере</h3>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-7 font-grey">
+                            <p class="padding-bot-12">Общее кол-во дискового простанства:</p>
+                            <p class="padding-bot-12">Кол-во оперативной памяти:</p>
+                            <p class="padding-bot-12">Статус физического сервера:</p>
+                            <p class="padding-bot-12">Информация о процессоре:</p>
+                            <p class="padding-bot-12">IP адрес физического сервера:</p>
+                            <p class="padding-bot-12">MAC адрес физического сервера:</p>
+                            <p>
+                                <h:commandButton value="Изменить" styleClass="btn btn-warning margin-right-10 width-90" action="#{ServerManage.goToUpdatePS(ServerManage.physicalServer.id)}"/>
+                                <h:commandButton value="Удалить" styleClass="btn btn-danger width-90" action="#{ServerManage.deletePhysicalServer(ServerManage.physicalServer.id)}"/>
+                            </p>
+                        </div>
+                        <div class="col-lg-5 col-md-5 font-size-larger">
+                            <p class="margin-bot-35"><h:outputText value="#{ServerManage.physicalServer.HDD}" id="HDD"/></p>
+                            <p class="padding-bot-12"><h:outputText value="#{ServerManage.physicalServer.RAM}" id="RAM"/></p>
+                            <p class="padding-bot-12"><h:outputText value="#{ServerManage.physicalServer.status}" id="status"/></p>
+                            <p class="padding-bot-12"><h:outputText value="#{ServerManage.physicalServer.processorName}" id="processor"/></p>
+                            <p class="padding-bot-12"><h:outputText value="#{ServerManage.physicalServer.IP}" id="IPPhysServ"/></p>
+                            <p class="padding-bot-12"><h:outputText value="#{ServerManage.physicalServer.MAC}" id="MAC"/></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8">
+                    <h:commandButton value="Добавить виртуальный сервер" action="#{ServerManage.goToAddVirtualServer}" styleClass="btn btn-primary margin-bottom-30" />
+                    <p:dataTable value="#{ServerManage.selectVirtServForPS(ServerManage.physicalServer.id)}" var="virtServ" rows="10"
+                                 styleClass="text-center" id="virtServTable" rowsPerPageTemplate="5,10,15">
+                        <f:facet name="header">
+                            Виртуальные сервера
+                        </f:facet>
+                        <p:column headerText="Название" >
+                            <h:outputText value="#{virtServ.nameVM}" id="nameVM"/>
+                        </p:column>
+                        <p:column headerText="IP" >
+                            <h:outputText value="#{virtServ.IP}" id="IP"/>
+                        </p:column>
+                        <p:column headerText="Маска сети" >
+                            <h:outputText value="#{virtServ.mask}" id="mask"/>
+                        </p:column>
+                        <p:column headerText="Порт" styleClass="width-60">
+                            <h:outputText value="#{virtServ.port}" id="port"/>
+                        </p:column>
+                        <p:column headerText="ID физ. сервера" styleClass="width-80">
+                            <h:outputText value="#{virtServ.idPhysicalServer}" id="physicalServer"/>
+                        </p:column>
+                        <p:column styleClass="width-200">
+                            <p:splitButton value="Подробнее.." action="#{ServerManage.detailVirtualServer(virtServ.id)}" >
+                                <p:menuitem value="Изменить" action="#{ServerManage.goToUpdateVS(virtServ.id)}"  icon="ui-icon-arrowrefresh-1-w"  />
+                                <p:menuitem value="Удалить" action="#{ServerManage.deleteVirtualServer(virtServ.id)}" icon="ui-icon-close" />
+                            </p:splitButton>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </div>
+        </h:form>
+    </div>
+</h:body>
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <h:head>
+        <h:outputStylesheet name="css/bootstrap.css"/>
+        <h:outputStylesheet name="css/mystrap.css"/>
+        <h:outputStylesheet name="css/style.css"/>
+        <h:outputScript name="js/bootstrap.js"/>
+    </h:head>
+</h:head>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <p:graphicImage value="../resources/images/nimbus.png" width="16%" height="16%"
+                            styleClass="margin-bot-top-5"/>
+        </div>
+        <div class="navbar-collapse collapse">
+            <div class="navbar-form navbar-right">
+                <h:form>
+                    <h:commandButton rendered="true" id="submit" class="btn btn-danger" value="Выход"
+                                     action="#{loginBean.logout}"/>
+                </h:form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" align="center" style="margin-top: 5%">
+    <h4>Шаг 1 из 2</h4>
+    <h4>Данные для авторизации пользователя</h4>
+    <hr/>
+    <h:form>
+        <h:message for="login" style="color: red"/>
+        <br/>
+        Задайте имя пользователя:
+        <br/>
+        <h:inputText class="form-control" value="#{userBean.user.confirmLogin}" id="login" style="width: 25%"
+                     required="true" requiredMessage="Заполните поле"/>
+        <br/>
+        <h:message for="password" style="color: red"/>
+        <br/>
+        Задайте пароль:
+        <br/>
+        <h:inputText class="form-control" value="#{userBean.user.password}" id="password" style="width: 25%"
+                     required="true" requiredMessage="Заполните поле"/>
+        <br/>
+        <hr/>
+        <h:commandButton class="btn btn-success" value="Далее" action="#{userBean.insertUserPartOne}"/>
+    </h:form>
+</div>
+</html>

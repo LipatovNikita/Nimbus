@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <h:outputStylesheet name="css/bootstrap.css" />
+    <h:outputStylesheet name="css/bootstrap-theme.css" />
+    <h:outputStylesheet name="css/mystrap.css" />
+    <h:outputScript name="js/bootstrap.js" />
+    <h:outputScript name="js/npm.js" />
+</h:head>
+<h:body>
+    <ui:insert name="header" >
+        <ui:include src="../layout/mainmenu.xhtml" />
+    </ui:insert>
+
+    <div class="container margin-top-60">
+        <div class="alert alert-info">
+            <h3 class="text-center text-info">Создание нового компонента</h3>
+            <h4 class="text-center text-info">⚫Общаяя загруженность всех компонетов виртуального сервера должна быть не больше 100%</h4>
+        </div>
+        <h:form>
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-md-offset-2 font-size-larger font-grey">
+                    <p class="padding-bot-12">Введите название компонета:</p>
+                    <p class="padding-bot-12">Выберите порт на которой установлен компонент:</p>
+                    <p class="padding-bot-12">Введите версию компонента:</p>
+                    <p class="padding-bot-12">Введите среднюю загруженность компонета:</p>
+                    <p class="padding-bot-12">Выберите статус компонета:</p>
+                    <p class="padding-bot-12">Выберите информационную систему:</p>
+                    <p class="padding-bot-12">Выберите вертуальный сервер:</p>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    <p>
+                        <p:inputText value="#{ComponentManage.component.name}"  id="name" styleClass="form-control width-250"
+                                     required="true" requiredMessage="Введите название компонета"
+                                     validatorMessage="Название должно содержать от 4 до 45 символов">
+                            <f:validateLength minimum="4" maximum="45"/>
+                        </p:inputText>
+                        <p:message  id="nameMSG" for="name" display="text"/>
+                    </p>
+                    <p>
+                        <p:inputText value="#{ComponentManage.component.port}" id="port" styleClass="form-control width-250"
+                                     required="true" requiredMessage="Введите порт компонета"
+                                     validatorMessage="Возможные значения порта от 1 до 65536">
+                            <f:validateLongRange minimum="1" maximum="65536"/>
+                        </p:inputText>
+                        <p:message  id="portMSG" for="port" display="text"/>
+                    </p>
+                    <p>
+                        <h:inputText value="#{ComponentManage.component.version}" id="version" styleClass="form-control width-250"
+                                     required="true" requiredMessage="Введите версию компонета"
+                                     validatorMessage="Версия компонета должна содержать от 1 до 45 символов">
+                            <f:validateLength minimum="1" maximum="45"/>
+                        </h:inputText>
+                        <p:message  id="versionMSG" for="version" display="text"/>
+                    </p>
+                    <p>
+                        <h:inputText value="#{ComponentManage.component.load}" id="load" styleClass="form-control width-250"
+                                     required="true" requiredMessage="Введите загруженность компонета"
+                                     validatorMessage="Загруженность должна быть от 1% до 100%">
+                            <f:validateLongRange minimum="1" maximum="100"/>
+                        </h:inputText>
+                        <p:message  id="loadMSG" for="load" display="text"/>
+                    </p>
+                    <p>
+                        <h:selectOneMenu value="#{ComponentManage.component.status}" id="status" styleClass="form-control width-250" >
+                            <f:selectItem itemValue="Active" itemLabel="Active" styleClass="form-control" />
+                            <f:selectItem itemValue="TechnicalWork" itemLabel="TechnicalWork"  styleClass="form-control" />
+                            <f:selectItem itemValue="Down" itemLabel="Down" styleClass="form-control"  />
+                        </h:selectOneMenu>
+                    </p>
+                    <p>
+                        <h:selectOneMenu value="#{ComponentManage.component.idInformSystem}" id="idInformSystem" styleClass="form-control width-250" >
+                            <f:selectItems value="#{ComponentManage.selectMapInfoSyst.entrySet()}"
+                                       var="selectedIS" itemValue="#{selectedIS.key}" itemLabel="#{selectedIS.value}"  styleClass="form-control" />
+                        </h:selectOneMenu>
+                    </p>
+                    <p>
+                        <h:selectOneMenu value="#{ComponentManage.component.idVirtualServer}" id="idVirtualServer" styleClass="form-control width-250" >
+                            <f:selectItems value="#{ComponentManage.selectMapVirtServ.entrySet()}"
+                                           var="selectedVS" itemValue="#{selectedVS.key}" itemLabel="#{selectedVS.value}"  styleClass="form-control" />
+                        </h:selectOneMenu>
+                    </p>
+                    <p>
+                        <h:commandButton value="Создать" styleClass="btn btn-primary" action="#{ComponentManage.addComponentToVirtServer}"/>
+                    </p>
+                </div>
+            </div>
+        </h:form>
+    </div>
+</h:body>
+</html>

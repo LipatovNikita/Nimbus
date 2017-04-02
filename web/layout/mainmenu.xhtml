@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <h:outputStylesheet name="css/bootstrap.css"/>
+    <h:outputStylesheet name="css/bootstrap-theme.css"/>
+    <h:outputStylesheet name="css/mystrap.css"/>
+    <h:outputStylesheet name="style.css"/>
+    <h:outputScript name="js/bootstrap.js"/>
+    <h:outputScript name="js/npm.js"/>
+    <style>
+        .panel {
+            background: transparent;
+            border-color: transparent;
+            border-radius: 0 26px 26px 0;
+            box-shadow: none;
+            color: #fff;
+            height: 441px;
+            margin-bottom: 20px;
+            position: relative;
+            width: auto;
+            border-bottom: solid 1px #bfc5c4;
+            border-top: solid 1px #bfc5c4;
+            z-index: 1000;
+        }
+
+        .panel a {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 300;
+            z-index: 1000;
+        }
+
+        .panel a:hover {
+            text-decoration: none;
+            z-index: 1000;
+        }
+
+        .panel-rightbody i {
+            font-size: 40px;
+            z-index: 1000;
+        }
+
+        .panel-default > .panel-leftheading {
+            background: white;
+            color: black;
+            z-index: 1000;
+        }
+
+        .panel-leftheading {
+            float: left;
+            height: 100%;
+            padding: 10px 15px;
+            position: absolute;
+            width: 10%;
+            z-index: 1000;
+        }
+
+        .panel-lefttitle {
+            position: absolute;
+            -webkit-transform: rotate(270deg);
+            -webkit-transform-origin: left top;
+            -moz-transform: rotate(270deg);
+            -moz-transform-origin: left top;
+            -ms-transform: rotate(270deg);
+            -ms-transform-origin: left top;
+            -o-transform: rotate(270deg);
+            -o-transform-origin: left top;
+            transform: rotate(270deg);
+            transform-origin: left top;
+            z-index: 1000;
+        }
+
+        .panel-rightbody {
+            background: white; /*#ccc*/
+            color: black;
+            display: none;
+            float: left;
+            height: 100%;
+            position: absolute;
+            text-align: center;
+            padding: 15px;
+            width: 50%;
+            border-bottom: solid 1px #bfc5c4;
+            border-top: solid 1px #bfc5c4;
+            border-right: solid 1px #bfc5c4;
+            z-index: 1000;
+        }
+
+        #leftSLideBar {
+            left: -1px;
+            position: fixed;
+            top: 10px;
+            z-index: 1000;
+        }
+
+        #leftSLideBar .panel-rightbody p {
+            line-height: 17px;
+            z-index: 1000;
+        }
+
+        #leftSLideBar .panel-rightbody i.fa {
+            margin-bottom: 30px;
+            z-index: 1000;
+        }
+
+        #leftSLideBar .panel-leftheading {
+            opacity: 0.8;
+            z-index: 1000;
+        }
+
+        #leftSLideBar .panel-lefttitle {
+            bottom: -20px;
+            font-size: 23px;
+            font-weight: 300;
+            left: 0;
+            line-height: 28px;
+            padding-left: 77px;
+            white-space: nowrap;
+            z-index: 1000;
+        }
+
+        #leftSLideBar .panel.panel-default > img:first-child {
+            height: 64px;
+            opacity: 0.7;
+            position: absolute;
+            right: 53px;
+            top: 37px;
+            width: 169px;
+            z-index: 1000;
+        }
+
+        #leftSLideBar:hover .panel-rightbody {
+            display: table;
+            z-index: 1000;
+        }
+    </style>
+</h:head>
+<h:body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="/index.xhtml"><p:graphicImage value="../resources/images/nimbus.png" width="16%" height="16%"
+                                                       styleClass="margin-bot-top-5"/></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <div class="navbar-form navbar-right">
+                    <h:form id="loginForm">
+                        <c:choose>
+                            <c:when test="#{request.isUserInRole('Admin') || request.isUserInRole('Developer') || request.isUserInRole('Superadmin')}">
+                                <h:commandButton rendered="true" class="btn btn-danger" value="Выход"
+                                                 action="#{loginBean.logout}"/>
+                            </c:when>
+                            <c:otherwise>
+                                <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show();" title="login"
+                                              class="btn btn-success">
+                                    Вход
+                                </h:outputLink>
+                            </c:otherwise>
+                        </c:choose>
+                        <p:growl id="growl" sticky="true" showDetail="true" life="3000"/>
+                        <p:dialog widgetVar="dlg" resizable="false">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputLabel for="login" value="Имя пользователя"/>
+                                <br/>
+                                <p:inputText id="login" value="#{loginBean.username}" required="true"
+                                             label="username"/>
+                                <br/>
+                                <h:outputLabel for="password" value="Пароль"/>
+                                <br/>
+                                <p:password id="password" value="#{loginBean.password}" required="true"
+                                            label="password"/>
+                                <f:facet name="footer">
+                                    <hr/>
+                                    <center>
+                                        <p:commandButton id="submit" value="Войти" update="growl"
+                                                         action="#{loginBean.login}"
+                                                         oncomplete="handleLoginRequest(xhr, status, args)"/>
+                                    </center>
+                                </f:facet>
+                            </h:panelGrid>
+                        </p:dialog>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar-fixed-bottom color-grey row-fluid">
+        <div class="container">
+            <h:form>
+                <div class="row">
+                    <div class="col-lg-7 col-md-7">
+                    </div>
+                    <div class="col-lg-1 col-md-1">
+                        <p:graphicImage value="/resources/images/rosselxoz.png" width="130%" height="130%"
+                                        styleClass="margin-bot-top-5"/>
+                    </div>
+                    <div class="col-lg-4 col-md-4 ">
+                        <p class="margin-top-15 font-white">© 2007 — 2017 Россельхознадзор Федеральная служба по ветеринарному и фитосанитарному надзору</p>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </div>
+</h:body>
+</html>

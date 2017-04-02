@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <h:outputStylesheet name="css/bootstrap.css" />
+    <h:outputStylesheet name="css/bootstrap-theme.css" />
+    <h:outputStylesheet name="css/mystrap.css" />
+    <h:outputScript name="js/bootstrap.js" />
+    <h:outputScript name="js/npm.js" />
+</h:head>
+<h:body>
+    <ui:insert name="header" >
+        <ui:include src="../layout/mainmenu.xhtml" />
+    </ui:insert>
+
+    <div class="container margin-top-60">
+        <h3 class="text-center margin-bottom-30">Изменение виртуального сервера</h3>
+        <h:form>
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-md-offset-2 font-size-larger font-grey">
+                    <p class="padding-bot-12">Введите название виртуального сервера:</p>
+                    <p class="padding-bot-12">Введите IP адрес виртуального сервера:</p>
+                    <p class="padding-bot-12">Введите маску виртуального сервера:</p>
+                    <p class="padding-bot-12">Введите порт на котором работает виртуальный сервер:</p>
+                    <p class="padding-bot-12">Выберите физический сервер:</p>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    <p>
+                        <h:inputText value="#{ServerManage.virtualServer.nameVM}" id="nameVM" styleClass="form-control width-250"
+                                     required="true" requiredMessage="Введите название виртуального сервера"
+                                     validatorMessage="Название должно содержать от 3 до 45 символов">
+                            <f:validateLength minimum="3" maximum="45"/>
+                        </h:inputText>
+                        <p:message  id="nameVMMSG" for="nameVM" display="text"/>
+                    </p>
+                    <p>
+                        <h:inputText value="#{ServerManage.virtualServer.IP}" id="IP" styleClass="form-control width-250"
+                                     required="true" requiredMessage="Введите IP адрес"
+                                     validatorMessage="Введите IP-адрес в формате IPv4 или IPv6">
+                            <f:validateLength minimum="4" maximum="25"/>
+                        </h:inputText>
+                        <p:message  id="IPMSG" for="IP" display="text"/>
+                    </p>
+                    <p>
+                        <h:inputText value="#{ServerManage.virtualServer.mask}" id="mask" styleClass="form-control width-250"
+                                     required="true" requiredMessage="Введите маску сети"
+                                     validatorMessage="Введите маску сети">
+                            <f:validateLength minimum="4" maximum="25"/>
+                        </h:inputText>
+                        <p:message  id="maskMSG" for="mask" display="text"/>
+                    </p>
+                    <p>
+                        <h:inputText value="#{ServerManage.virtualServer.port}" id="port" styleClass="form-control width-250"
+                                     required="true" requiredMessage="Введите порт виртуального сервера"
+                                     validatorMessage="Возможные значения порта от 1 до 65536">
+                            <f:validateLongRange minimum="1" maximum="65536"/>
+                        </h:inputText>
+                        <p:message  id="portMSG" for="port" display="text"/>
+                    </p>
+                    <p>
+                        <h:selectOneMenu value="#{ServerManage.virtualServer.idPhysicalServer}" id="idPhysicalServer"  styleClass="form-control width-250"  >
+                            <f:selectItems value="#{ServerManage.selectMapPhysServ.entrySet()}"
+                                           var="selectedPS" itemValue="#{selectedPS.key}" itemLabel="#{selectedPS.value}" />
+                        </h:selectOneMenu>
+                    </p>
+                    <p>
+                        <h:commandButton value="Изменить" action="#{ServerManage.updateVirtualServer}"  styleClass="btn btn-primary"/>
+                    </p>
+                </div>
+            </div>
+        </h:form>
+    </div>
+</h:body>
+</html>
